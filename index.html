@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAYER STUDIOS</title>
+<meta name="description" content="레이어 스튜디오 — 서울의 렌탈 스튜디오 9개 지점. 사진과 공간을 사유합니다. Rental Studio ; Space and Scene.">
+<meta property="og:title" content="LAYER STUDIOS">
+<meta property="og:description" content="서울의 렌탈 스튜디오 9개 지점 — 성수, 한남, 홍대, 용산, 뚝섬. 화보·영상·행사 촬영 공간.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://layerdemo1.vercel.app/">
+<meta property="og:image" content="https://plusjun.com/images/web_layer_41.jpg">
+<meta property="og:site_name" content="Layer Studios">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1080 1080'%3E%3Crect width='1080' height='1080' rx='170' fill='%230D0D0B'/%3E%3Cpath fill='%23EDEAE3' d='M 225.19 854.80 L 225.19 87.25 L 87.25 87.25 L 87.25 992.75 L 992.75 992.75 L 992.75 854.80 Z'/%3E%3Cpath fill='%23EDEAE3' d='M 385.24 87.25 L 247.29 87.25 L 247.29 832.70 L 992.75 832.70 L 992.75 694.76 L 385.24 694.76 Z'/%3E%3Cpath fill='%23EDEAE3' d='M 407.34 87.25 C 413.98 409.44 677.43 670.5 992.75 672.66 L 992.75 87.25 Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0D0D0B;
+    --cream: #EDEAE3;
+    --bone: #B8B4AA;
+    --gray: #6B6B64;
+    --line: #3A3934;
+    --hair: #26261F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Oswald', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .disp-font {
+    font-family: 'Anton', sans-serif;
+    display: inline-block;
+    transform: scale(.72, 1.1);
+    transform-origin: left bottom;
+    line-height: .9; letter-spacing: .008em; white-space: nowrap;
+    color: var(--cream);
+  }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 24px;
+    mix-blend-mode: difference;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand svg { width: 22px; height: 22px; }
+  .brand span { font-size: 12px; letter-spacing: .18em; font-weight: 600; }
+  .menu { display: flex; gap: 28px; font-size: 11px; letter-spacing: .18em; white-space: nowrap; }
+  .menu a:hover { color: var(--bone); }
+  .menu a.on { font-weight: 600; }
+
+  nav.studio-nav {
+    position: fixed; left: 24px; top: 50%; transform: translateY(-50%); z-index: 40;
+    display: flex; flex-direction: column; gap: 10px;
+    font-size: 11px; letter-spacing: .12em; line-height: 1;
+    mix-blend-mode: difference;
+  }
+  nav.studio-nav a { color: var(--gray); display: flex; align-items: center; gap: 8px; transition: color .25s; }
+  nav.studio-nav a .dash { width: 0; height: 1px; background: var(--cream); transition: width .25s; }
+  nav.studio-nav a.active { color: var(--cream); font-weight: 600; }
+  nav.studio-nav a.active .dash { width: 24px; }
+  nav.studio-nav a:hover { color: var(--bone); }
+
+  .view { display: none; }
+  .view.show { display: block; }
+
+  /* ---------- home ---------- */
+  #view-home main { scroll-snap-type: y proximity; }
+  section.studio {
+    position: relative;
+    min-height: 100vh;
+    scroll-snap-align: start;
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .photo {
+    position: absolute; inset: 0 0 0 40%;
+    background-size: cover; background-position: center;
+    filter: grayscale(1) contrast(1.06) brightness(.92);
+  }
+  .photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--ink) 0%, rgba(13,13,11,.35) 30%, transparent 60%);
+  }
+  section.studio:nth-child(even) .photo { inset: 0 0 0 46%; }
+  .circle { display: none; }
+  .title-wrap { position: relative; z-index: 3; padding: 0 0 16vh 9vw; }
+  .idx { font-size: 11px; letter-spacing: .16em; color: var(--bone); margin-bottom: clamp(28px, 4vw, 60px); }
+  .hero-title {
+    font-family: 'Anton', sans-serif;
+    display: inline-block;
+    transform: scale(.7, 1.14); transform-origin: left bottom;
+    font-size: clamp(64px, 15vw, 220px);
+    line-height: .86; letter-spacing: .008em; white-space: nowrap;
+    color: var(--cream);
+  }
+  .bp {
+    position: absolute; left: 9vw; bottom: 96px; z-index: 3;
+    width: 150px; height: 82px; opacity: .5; pointer-events: none;
+  }
+  .bp div { position: absolute; border: 1px solid #7C7A72; }
+  .bp .b1 { inset: 0; }
+  .bp .b2 { left: 0; top: 0; width: 38%; height: 55%; border-width: 0 1px 1px 0; }
+  .bp .b3 { left: 38%; top: 0; width: 30%; height: 34%; border-width: 0 1px 1px 0; }
+  .bp .b4 { right: 0; bottom: 0; width: 32%; height: 64%; border-width: 1px 0 0 1px; }
+  .loc {
+    position: absolute; left: 9vw; bottom: 96px; z-index: 3;
+    font-size: 10px; letter-spacing: .14em; line-height: 1.7; color: var(--bone);
+    border-left: 1px solid #55534C; padding-left: 14px;
+  }
+  .loc .k { color: var(--gray); display: block; margin-bottom: 5px; }
+  .loc a { color: var(--cream); display: inline-block; margin-top: 5px; }
+  .loc a:hover { color: #fff; }
+  .pager {
+    position: absolute; right: 24px; bottom: 88px; z-index: 3;
+    font-size: 12px; letter-spacing: .14em; color: var(--cream);
+  }
+
+  .bar {
+    position: relative; z-index: 3;
+    margin: 0 16px 14px; height: 52px;
+    display: flex; align-items: stretch;
+    border: 1px solid var(--line); background: var(--ink);
+    white-space: nowrap; overflow: hidden;
+  }
+  .bar .specs {
+    flex: 1 1 auto; min-width: 0;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    padding: 0 16px; font-size: 10px; letter-spacing: .1em; color: var(--bone);
+  }
+  .bar .specs i { font-style: normal; color: #55534C; }
+  .bar .view-link {
+    flex: 0 0 auto; display: flex; align-items: center; padding: 0 22px;
+    font-size: 11px; letter-spacing: .14em; font-weight: 600;
+    border-left: 1px solid var(--line); transition: background .2s; cursor: pointer;
+  }
+  .bar .view-link:hover { background: #1A1A16; }
+  .bar .view-link b { font-weight: 600; color: var(--bone); margin-left: 8px; }
+  .bar .reserve {
+    flex: 0 0 auto; display: flex; align-items: center; padding: 0 26px;
+    font-size: 11px; letter-spacing: .14em; font-weight: 600;
+    color: var(--ink); background: var(--cream); transition: background .2s;
+  }
+  .bar .reserve:hover { background: #fff; }
+
+  /* ---------- page shells ---------- */
+  .page { min-height: 100vh; padding: 92px 0 0; }
+  .page-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 24px 24px 26px;
+  }
+  .page-head .disp-font { font-size: clamp(48px, 8vw, 84px); }
+  .page-head .meta { font-size: 10px; color: var(--gray); letter-spacing: .14em; text-align: right; line-height: 1.9; white-space: nowrap; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 0 16px; }
+  .tile { position: relative; display: block; height: 240px; overflow: hidden; background: #2A2924; cursor: pointer; }
+  .tile.wide { grid-column: span 2; }
+  .tile .t-photo {
+    position: absolute; inset: 0; background-size: cover; background-position: center;
+    filter: grayscale(1) contrast(1.06) brightness(.9);
+    transition: filter .4s ease, transform .4s ease;
+  }
+  .tile:hover .t-photo { filter: grayscale(0) contrast(1) brightness(1); transform: scale(1.03); }
+  .tile .t-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(13,13,11,.8)); }
+  .tile .t-no { position: absolute; right: 12px; top: 10px; font-size: 10px; letter-spacing: .12em; color: var(--cream); }
+  .tile .t-label { position: absolute; left: 14px; bottom: 12px; }
+  .tile .t-label .disp-font { font-size: 26px; }
+  .tile.wide .t-label .disp-font { font-size: 38px; }
+  .tile .t-spec { display: block; font-size: 9px; letter-spacing: .12em; color: var(--bone); margin-top: 5px; }
+
+  .year {
+    padding: 30px 24px 12px; font-size: 11px; letter-spacing: .2em; color: #8A867C;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .year::after { content: ''; flex: 1; height: 1px; background: var(--hair); }
+  a.evt {
+    display: flex; align-items: center; gap: 18px;
+    border-top: 1px solid var(--hair); padding: 14px 24px;
+    transition: background .2s;
+  }
+  a.evt:hover { background: #14140F; }
+  a.evt:last-of-type { border-bottom: 1px solid var(--hair); }
+  .evt .date { font-size: 10px; color: var(--gray); letter-spacing: .1em; width: 74px; flex: 0 0 auto; white-space: nowrap; }
+  .evt .name { flex: 1; min-width: 0; }
+  .evt .name .disp-font { font-size: clamp(20px, 3.6vw, 30px); }
+  .evt .name .sub { font-family: 'Oswald', sans-serif; font-size: 11px; color: #8A867C; letter-spacing: .12em; margin-left: 10px; }
+  .evt .studio-tag { font-size: 10px; color: var(--gray); letter-spacing: .12em; white-space: nowrap; }
+
+  .page-cta {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px;
+  }
+  .page-cta .copy { font-size: 10px; color: var(--gray); letter-spacing: .16em; }
+  .page-cta .reserve-btn {
+    font-size: 12px; color: var(--ink); background: var(--cream);
+    padding: 10px 24px; letter-spacing: .16em; font-weight: 600;
+  }
+  .page-cta .reserve-btn:hover { background: #fff; }
+
+  /* ---------- detail ---------- */
+  .crumb { padding: 0 24px; font-size: 10px; letter-spacing: .14em; color: var(--gray); display: flex; gap: 24px; }
+  .crumb a:hover { color: var(--bone); }
+  .d-head { padding: 14px 24px 22px; display: flex; align-items: flex-end; justify-content: space-between; }
+  .d-head .disp-font { font-size: clamp(52px, 9vw, 96px); }
+  .d-head .meta { font-size: 10px; color: #8A867C; letter-spacing: .14em; text-align: right; line-height: 2; white-space: nowrap; }
+  .d-main {
+    display: block; margin: 0 16px; width: calc(100% - 32px); height: auto;
+    filter: grayscale(1) contrast(1.06) brightness(.92);
+  }
+  .d-cells { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 2px 16px 0; }
+  .d-cell { border: 1px solid var(--hair); padding: 14px 16px; }
+  .d-cell .k { font-size: 9px; letter-spacing: .16em; color: var(--gray); }
+  .d-cell .v { font-size: 15px; letter-spacing: .06em; color: var(--cream); margin-top: 6px; font-weight: 600; }
+  .d-grid { columns: 2; column-gap: 2px; margin: 26px 16px 0; }
+  .d-ph {
+    display: block; width: 100%; height: auto; margin-bottom: 2px;
+    break-inside: avoid;
+    filter: grayscale(1) contrast(1.06) brightness(.9);
+    transition: filter .4s ease;
+  }
+  .d-ph:hover { filter: grayscale(0) contrast(1) brightness(1); }
+  .d-more { margin: 10px 24px 0; font-size: 10px; letter-spacing: .14em; color: var(--gray); text-align: right; display: block; }
+  .d-more:hover { color: var(--bone); }
+  .d-info { display: flex; gap: 28px; margin: 30px 24px 0; align-items: stretch; }
+  .d-plan { flex: 1; position: relative; min-height: 160px; opacity: .75; }
+  .d-plan div { position: absolute; border: 1px solid #7C7A72; }
+  .d-plan .p1 { inset: 0; }
+  .d-plan .p2 { left: 0; top: 0; width: 38%; height: 55%; border-width: 0 1px 1px 0; }
+  .d-plan .p3 { left: 38%; top: 0; width: 30%; height: 34%; border-width: 0 1px 1px 0; }
+  .d-plan .p4 { right: 0; bottom: 0; width: 32%; height: 64%; border-width: 1px 0 0 1px; }
+  .d-plan .p-label { position: absolute; left: 10px; bottom: 8px; font-size: 9px; letter-spacing: .16em; color: #8A867C; border: 0; }
+  .d-list { flex: 1.1; font-size: 11px; letter-spacing: .08em; color: var(--bone); }
+  .d-list .h { font-size: 10px; letter-spacing: .18em; color: var(--gray); margin-bottom: 10px; }
+  .d-list .row { display: flex; justify-content: space-between; border-bottom: 1px solid var(--hair); padding: 8px 0; }
+  .d-list .row:last-child { border-bottom: 0; }
+  .d-list .row b { font-weight: 600; color: var(--cream); }
+  .d-bar { margin: 30px 16px 14px; }
+
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .rv.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv { opacity: 1; transform: none; transition: none; }
+    #view-home main { scroll-snap-type: none; }
+    .tile .t-photo, .d-ph { transition: none; }
+  }
+
+  footer {
+    padding: 60px 24px 40px;
+    font-size: 10px; line-height: 2; letter-spacing: .08em; color: var(--gray);
+  }
+  footer a { text-decoration: underline; }
+  footer a:hover { color: var(--bone); }
+
+  @media (max-width: 720px) {
+    nav.studio-nav { display: none; }
+    .menu { gap: 16px; font-size: 10px; }
+    .photo, section.studio:nth-child(even) .photo { inset: 0; }
+    .photo::after { background: linear-gradient(180deg, rgba(13,13,11,.55), rgba(13,13,11,.25) 40%, rgba(13,13,11,.7)); }
+    .title-wrap { padding: 0 0 18vh 20px; }
+    .hero-title { font-size: clamp(72px, 24vw, 140px); white-space: normal; }
+    .bp, .loc { display: none; }
+    .pager { bottom: 84px; }
+    .bar { margin: 0 10px 10px; }
+    .bar .specs { display: none; }
+    .bar .view-link, .bar .reserve { flex: 1; justify-content: center; }
+    .grid { grid-template-columns: 1fr 1fr; }
+    .tile, .tile.wide { grid-column: auto; height: 180px; }
+    .evt .studio-tag { display: none; }
+    .d-cells { grid-template-columns: 1fr 1fr; }
+    .d-grid { columns: 1; }
+    .d-info { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#home" aria-label="Layer Studios home">
+    <svg viewBox="0 0 1080 1080" role="img" aria-label="Layer Studios symbol">
+      <path fill="#EDEAE3" d="M 225.19 854.80 L 225.19 87.25 L 87.25 87.25 L 87.25 992.75 L 992.75 992.75 L 992.75 854.80 Z"/>
+      <path fill="#EDEAE3" d="M 385.24 87.25 L 247.29 87.25 L 247.29 832.70 L 992.75 832.70 L 992.75 694.76 L 385.24 694.76 Z"/>
+      <path fill="#EDEAE3" d="M 407.34 87.25 C 413.98 409.44 677.43 670.5 992.75 672.66 L 992.75 87.25 Z"/>
+    </svg>
+    <span>LAYER STUDIOS</span>
+  </a>
+  <div class="menu">
+    <a href="#studios" data-route="studios">STUDIOS</a>
+    <a href="#archive" data-route="archive">ARCHIVE</a>
+    <a href="https://plusjun.com/guide.html">GUIDE</a>
+    <a href="https://plusjun.com/board/product/list.html?board_no=6">Q&amp;A</a>
+  </div>
+</header>
+
+<nav class="studio-nav" aria-label="Studios"></nav>
+
+<div id="view-home" class="view show"><main></main></div>
+
+<div id="view-studios" class="view">
+  <div class="page">
+    <div class="page-head">
+      <span class="disp-font">STUDIOS</span>
+      <span class="meta">09 SPACES · SEOUL<br>SEONGSU / HANNAM / HONGDAE / YONGSAN / TTUKSEOM</span>
+    </div>
+    <div class="grid" id="studio-grid"></div>
+    <div class="page-cta">
+      <span class="copy">PLUSJUN STUDIOS © 2009 — 2026</span>
+      <a class="reserve-btn" href="https://plusjun.com/schedule.html">RESERVATION&nbsp;&nbsp;&#8594;</a>
+    </div>
+  </div>
+</div>
+
+<div id="view-archive" class="view">
+  <div class="page">
+    <div class="page-head">
+      <span class="disp-font">ARCHIVE</span>
+      <span class="meta">EVENTS &amp; PRODUCTIONS · 2018 —</span>
+    </div>
+    <div id="archive-list"></div>
+    <div class="page-cta">
+      <span class="copy">PLUSJUN STUDIOS © 2009 — 2026</span>
+      <a class="reserve-btn" href="https://plusjun.com/schedule.html">RESERVATION&nbsp;&nbsp;&#8594;</a>
+    </div>
+  </div>
+</div>
+
+<div id="view-detail" class="view">
+  <div class="page" id="detail-page"></div>
+</div>
+
+<footer>
+  LAYER STUDIOS · PLUSJUN STUDIOS © 2009 — 2026<br>
+  57 Seongsui-ro 20gil, Seongdong-gu, Seoul · +82 (0)70 4203 7722 · <a href="mailto:contact@plusjun.com">contact@plusjun.com</a> · <a href="http://instagram.com/plusjunstudios">INSTAGRAM</a><br>
+  레이어스튜디오 / 대표 허준성 / 사업자등록번호 105-16-27566 / 통신판매업 2017-서울마포-1348
+</footer>
+
+<script>
+  var STUDIOS = [
+    { id: '07', name: 'LAYER 7', specs: ['YONGSAN', '160PY', 'OLD CHURCH'],
+      addr: ['7, HANGANG-DAERO 98GA-GIL', 'YONGSAN-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC6A9\uC0B0\uAD6C \uD55C\uAC15\uB300\uB85C98\uAC00\uAE38 7',
+      img: 'https://plusjun.com/images/studios/yongsan/ys_preview_13.jpg',
+      photos: [
+        'https://plusjun.com/images/studios/yongsan/ys_preview_08-3.jpg',
+        'https://plusjun.com/images/studios/yongsan/ys_preview_20-1.jpg',
+        'https://plusjun.com/images/studios/yongsan/ys_b_detail_11.jpg',
+        'https://plusjun.com/images/studios/yongsan/ys_c_detail_06.jpg'],
+      link: 'https://plusjun.com/product/studio-ys.html',
+      cells: [['LOCATION','YONGSAN'],['AREA','160PY'],['HEIGHT','8M (A)'],['TYPE','OLD CHURCH']],
+      info: [['HOURS','09:00 \u2014 22:00'],['A PART','100PY \u00B7 H 8M'],['B + C PART','60PY'],['TERRACE','AVAILABLE'],['RATE','SEE RATE SHEET \u2197']] },
+    { id: '10', name: 'LAYER 10', specs: ['TTUKSEOM', '400PY', 'CAFE'],
+      addr: ['10, SANGWON 4-GIL', 'SEONGDONG-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC131\uB3D9\uAD6C \uC0C1\uC6D04\uAE38 10',
+      img: 'https://plusjun.com/images/studios/layer10/10_ex_detail_11.jpg',
+      photos: [
+        'https://plusjun.com/images/studios/layer10/10_b_detail_04.jpg',
+        'https://plusjun.com/images/studios/layer10/10_a_detail_01.jpg',
+        'https://plusjun.com/images/studios/layer10/10_preview_033.jpg',
+        'https://plusjun.com/images/studios/layer10/10_cafe_detail_10.jpg'],
+      link: 'https://plusjun.com/product/studio-10.html',
+      cells: [['LOCATION','TTUKSEOM'],['AREA','400PY'],['TYPE','TEXTILE FACTORY'],['CAFE','YES']] },
+    { id: '11', name: 'LAYER 11', specs: ['MAPO', '300PY', 'HEIGHT 8M'],
+      addr: ['41-11, GWANGSEONG-RO', 'MAPO-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uB9C8\uD3EC\uAD6C \uAD11\uC131\uB85C 41-11',
+      img: 'https://plusjun1.cafe24.com/images/layer%2011/240812_11_ex.jpg',
+      photos: [
+        'https://plusjun1.cafe24.com/images/layer%2011/1115_B1.jpg',
+        'https://plusjun1.cafe24.com/images/layer%2011/1115_B2.jpg',
+        'https://plusjun1.cafe24.com/images/layer%2011/1115_A3.jpg',
+        'https://plusjun1.cafe24.com/images/layer%2011/1115_A4.jpg'],
+      link: 'https://plusjun.com/product/11_info.html',
+      cells: [['LOCATION','MAPO'],['AREA','300PY'],['HEIGHT','8M'],['WIDTH','60M']] },
+    { id: '20', name: 'LAYER 20', specs: ['YONGSAN', '400PY'],
+      addr: ['236, WONHYO-RO', 'YONGSAN-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC6A9\uC0B0\uAD6C \uC6D0\uD6A8\uB85C 236',
+      img: 'https://plusjun1.cafe24.com/web/LAYER%2020%20%E1%84%92%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE%E1%84%86%E1%85%A1%E1%86%A8.jpg',
+      photos: [
+        'https://plusjun1.cafe24.com/images/layer%2011/layer20/0724_1%E1%84%8E%E1%85%B3%E1%86%BC1.jpg',
+        'https://plusjun1.cafe24.com/images/layer%2011/layer20/0724_2%E1%84%8E%E1%85%B3%E1%86%BC1.jpg',
+        'https://plusjun1.cafe24.com/images/layer%2011/layer20/0724_3%E1%84%8E%E1%85%B3%E1%86%BC1.jpg',
+        'https://plusjun1.cafe24.com/images/layer%2011/layer20/0724_%E1%84%8B%E1%85%AC%E1%84%87%E1%85%AE1.jpg'],
+      link: 'https://plusjun.com/product/studio-20.html',
+      cells: [['LOCATION','YONGSAN'],['AREA','400PY'],['PARKING','6 CARS'],['LIGHT','NATURAL']] },
+    { id: '26', name: 'LAYER 26', specs: ['SEONGSU', '100PY', 'NATURAL LIGHT'],
+      addr: ['26, ACHASAN-RO 11GA-GIL', 'SEONGDONG-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC131\uB3D9\uAD6C \uC544\uCC28\uC0B0\uB85C11\uAC00\uAE38 26',
+      img: 'https://plusjun.com/images/studios/layer26/26_a_01.jpg',
+      photos: [
+        'https://plusjun.com/images/studios/layer26/26_a_02.jpg',
+        'https://plusjun.com/images/studios/layer26/26_a_04.jpg',
+        'https://plusjun.com/images/studios/layer26/26_a_06.jpg',
+        'https://plusjun.com/images/studios/layer26/26_b_01.jpg'],
+      link: 'https://plusjun.com/product/studio-26.html',
+      cells: [['LOCATION','SEONGSU'],['AREA','100PY'],['LIGHT','NATURAL'],['FLOOR','SINGLE']] },
+    { id: '27', name: 'LAYER 27', specs: ['SEONGSU', '120PY', 'DUPLEX'],
+      addr: ['26, ACHASAN-RO 11GA-GIL', 'SEONGDONG-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC131\uB3D9\uAD6C \uC544\uCC28\uC0B0\uB85C11\uAC00\uAE38 26',
+      img: 'https://plusjun1.cafe24.com/images/layer27/27_R_3.JPG',
+      photos: [
+        'https://plusjun1.cafe24.com/images/layer27/27_R_4.JPG',
+        'https://plusjun1.cafe24.com/images/layer27/27_2.jpg',
+        'https://plusjun1.cafe24.com/images/layer27/27_c1.jpg',
+        'https://plusjun1.cafe24.com/images/layer27/27_e1.jpeg'],
+      link: 'https://plusjun.com/js/27_info.html',
+      cells: [['LOCATION','SEONGSU'],['AREA','120PY'],['TYPE','DUPLEX'],['LIGHT','NATURAL']] },
+    { id: '41', name: 'LAYER 41', specs: ['SEONGSU', '450PY', 'HEIGHT 9M', '3 PARTS'],
+      addr: ['41, ACHASAN-RO 9-GIL', 'SEONGDONG-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC131\uB3D9\uAD6C \uC544\uCC28\uC0B0\uB85C9\uAE38 41',
+      img: 'https://plusjun.com/images/studios/layer41/41_pre_02.jpg',
+      photos: [
+        'https://plusjun.com/images/studios/layer41/41_pre_03.jpg',
+        'https://plusjun.com/images/studios/layer41/41_pre_07.jpg',
+        'https://plusjun.com/images/studios/layer41/layer41_3f_03.jpg',
+        'https://plusjun.com/images/studios/layer41/layer41_3f_05.jpg'],
+      link: 'https://plusjun.com/product/studio-41.html', wide: true,
+      plan: 'https://plusjun.com/images/studios/layer41/layer41_floormaps_b_20211029-2.jpg',
+      cells: [['LOCATION','SEONGSU'],['AREA','450PY'],['HEIGHT','9M (A)'],['PARTS','A \u00B7 B \u00B7 C']],
+      info: [['HOURS','09:00 \u2014 22:00'],['A PART','250PY \u00B7 H 9M'],['C PART','150PY \u00B7 H 4M \u00B7 ROOFTOP'],['EQUIPMENT','PROFOTO RENTAL'],['RATE','SEE RATE SHEET \u2197']] },
+    { id: 'HD', name: 'HONGDAE', specs: ['MAPO', 'HOUSE', '200PY GARDEN'],
+      addr: ['23, WORLDCUP BUK-RO 15-GIL', 'MAPO-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uB9C8\uD3EC\uAD6C \uC6D4\uB4DC\uCEF5\uBD81\uB85C15\uAE38 23',
+      img: 'https://plusjun.com/images/studios/hongdae/hd_G_detail_02.jpg',
+      photos: [
+        'https://plusjun.com/images/studios/hongdae/g04.jpg',
+        'https://plusjun.com/images/studios/hongdae/38.jpg',
+        'https://plusjun.com/images/studios/hongdae/hd_A_detail_10.jpg',
+        'https://plusjun.com/images/studios/hongdae/hd_D_detail_19-1.jpg'],
+      link: 'https://plusjun.com/product/studio-hd.html',
+      cells: [['LOCATION','MAPO'],['TYPE','HOUSE'],['ROOMS','A \u2014 D'],['GARDEN','200PY']],
+      info: [['HOURS','09:00 \u2014 22:00'],['A \u00B7 B \u00B7 D ROOM','\u20A960,000 / HR \u00B7 4P'],['C ROOM','\u20A930,000 / HR \u00B7 3P'],['BACK GARDEN','\u20A940,000 / HR'],['MIN. BOOKING','2 HOURS']] },
+    { id: 'HN', name: 'HANNAM', specs: ['HANNAM', '150PY', 'HOUSE'],
+      addr: ['743-27, HANNAM-DONG', 'YONGSAN-GU, SEOUL'], kaddr: '\uC11C\uC6B8 \uC6A9\uC0B0\uAD6C \uD55C\uB0A8\uB3D9 743-27',
+      img: 'https://plusjun1.cafe24.com/Hannam/1114_e1.jpg',
+      photos: [
+        'https://plusjun1.cafe24.com/Hannam/hn_1f_1.jpg',
+        'https://plusjun1.cafe24.com/Hannam/hn_1f_2.jpg',
+        'https://plusjun1.cafe24.com/Hannam/hn_2f_1.jpg',
+        'https://plusjun1.cafe24.com/Hannam/hn_2f_2.jpg'],
+      link: 'https://plusjun.com/product/studio-hannam.html',
+      cells: [['LOCATION','HANNAM'],['AREA','150PY'],['FLOORS','2'],['TYPE','HOUSE']] }
+  ];
+  var RESERVE = 'https://plusjun.com/schedule.html';
+  var QNA = 'https://plusjun.com/board/product/list.html?board_no=6';
+  var FEATURE = 'https://plusjun.com/feature.html?cate_no=84&display_group=1&product_no=';
+  var DEFAULT_INFO = [['HOURS','09:00 \u2014 22:00'],['CAPACITY','\u2014'],['PARKING','\u2014'],['EQUIPMENT','PROFOTO RENTAL'],['RATE','\u2014']];
+  var ARCHIVE = [
+    { year: '2019', items: [
+      { date: '09.19', brand: 'BALMAIN', sub: 'SEOUL PARTY', no: 1548 },
+      { date: '07.18', brand: 'JOE HAHN', sub: 'LINKIN PARK "CARRY ON"', no: 1410 },
+      { date: '06.28\u201329', brand: 'NAVER ON STAGE', sub: '"SOUND PLAY"', no: 1407 },
+      { date: '06.05', brand: 'BURBERRY', sub: 'THOMAS BURBERRY MONOGRAM', no: 1404 },
+      { date: '05.22', brand: 'BOTTEGA VENETA', sub: 'PRE-FALL 2019', no: 1411 },
+      { date: '04.15\u201320', brand: 'FENDI', sub: 'FUR SALON 2019', no: 1393 },
+      { date: '04.04', brand: 'DIOR', sub: 'ADDICT "BE DIOR. BE PINK"', no: 1381 }
+    ]},
+    { year: '2018', items: [
+      { date: '11.06', brand: 'MOSCHINO', sub: '[TV] H&amp;M', no: 1354 },
+      { date: '10.19', brand: 'CHANCE CHANCE', sub: '2018 F/W', no: 1345 },
+      { date: '09.07', brand: 'ANDERSSON BELL', sub: 'X WOOLMARK "INDUSTRIAL CLASSIC"', no: 1297 }
+    ]}
+  ];
+
+  var total = String(STUDIOS.length).padStart(2, '0');
+  function bg(url) { return 'background-image:url(&#39;' + url + '&#39;)'; }
+
+  /* ---------- home ---------- */
+  var main = document.querySelector('#view-home main');
+  var nav = document.querySelector('nav.studio-nav');
+
+  STUDIOS.forEach(function (s, i) {
+    var num = String(i + 1).padStart(2, '0');
+    var sec = document.createElement('section');
+    sec.className = 'studio';
+    sec.id = 's-' + s.id;
+    sec.innerHTML =
+      '<div class="photo" style="' + bg(s.img) + '"></div>' +
+      '<div class="circle"></div>' +
+      '<div class="title-wrap rv">' +
+        '<div class="idx">' + s.id + '&nbsp;&nbsp;\u2014&nbsp;&nbsp;' + num + ' / ' + total + '</div>' +
+        '<a href="#s/' + s.id + '"><span class="hero-title">' + s.name + '</span></a>' +
+      '</div>' +
+      (s.addr
+        ? '<div class="loc"><span class="k">LOCATION</span>' + s.addr[0] + '<br>' + s.addr[1] +
+          '<br><a href="https://map.naver.com/v5/search/' + encodeURIComponent(s.kaddr) + '">MAP \u2197</a></div>'
+        : '') +
+      '<div class="pager">' + num + ' / ' + total + '</div>' +
+      '<div class="bar">' +
+        '<div class="specs">' + s.specs.map(function (x) { return '<span>' + x.replace(/ /g, '&nbsp;') + '</span>'; }).join('<i>\u00B7</i>') + '</div>' +
+        '<a class="view-link" href="#s/' + s.id + '">VIEW&nbsp;STUDIO<b>\u2197</b></a>' +
+        '<a class="reserve" href="' + RESERVE + '">RESERVATION&nbsp;&nbsp;\u2192</a>' +
+      '</div>';
+    main.appendChild(sec);
+
+    var a = document.createElement('a');
+    a.href = '#home';
+    a.dataset.target = 's-' + s.id;
+    a.innerHTML = '<span>' + s.id + '</span><span class="dash"></span>';
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      location.hash = '#home';
+      setTimeout(function () { document.getElementById('s-' + s.id).scrollIntoView(); }, 0);
+    });
+    nav.appendChild(a);
+  });
+
+  /* ---------- studios grid ---------- */
+  var grid = document.getElementById('studio-grid');
+  STUDIOS.forEach(function (s, i) {
+    var num = String(i + 1).padStart(2, '0');
+    var a = document.createElement('a');
+    a.className = 'tile' + (s.wide ? ' wide' : '');
+    a.href = '#s/' + s.id;
+    a.innerHTML =
+      '<div class="t-photo" style="' + bg(s.img) + '"></div>' +
+      '<div class="t-scrim"></div>' +
+      '<span class="t-no">' + num + ' / ' + total + '</span>' +
+      '<div class="t-label"><span class="disp-font">' + s.name + '</span>' +
+      '<span class="t-spec">' + s.specs.join(' \u00B7 ') + '</span></div>';
+    grid.appendChild(a);
+  });
+
+  /* ---------- archive ---------- */
+  var list = document.getElementById('archive-list');
+  ARCHIVE.forEach(function (g) {
+    var y = document.createElement('div');
+    y.className = 'year';
+    y.textContent = g.year;
+    list.appendChild(y);
+    g.items.forEach(function (ev) {
+      var a = document.createElement('a');
+      a.className = 'evt';
+      a.href = FEATURE + ev.no;
+      a.innerHTML =
+        '<span class="date">' + ev.date + '</span>' +
+        '<span class="name"><span class="disp-font">' + ev.brand + '</span>' +
+        '<span class="sub">' + ev.sub + '</span></span>' +
+        '<span class="studio-tag">LAYER 41</span>';
+      list.appendChild(a);
+    });
+  });
+
+  /* ---------- detail ---------- */
+  function renderDetail(s) {
+    var i = STUDIOS.indexOf(s);
+    var num = String(i + 1).padStart(2, '0');
+    var info = s.info || DEFAULT_INFO;
+    var el = document.getElementById('detail-page');
+    el.innerHTML =
+      '<div class="crumb"><a href="#studios">\u2190&nbsp;&nbsp;ALL STUDIOS</a><span>' + num + ' / ' + total + '</span></div>' +
+      '<div class="d-head">' +
+        '<span class="disp-font">' + s.name + '</span>' +
+        '<div class="meta">' + s.specs[0] + ', SEOUL<br>EVENTS \u00B7 CAMPAIGNS \u00B7 FILM</div>' +
+      '</div>' +
+      '<img class="d-main" src="' + s.img + '" alt="' + s.name + '">' +
+      '<div class="d-cells">' + s.cells.map(function (c) {
+        return '<div class="d-cell"><div class="k">' + c[0] + '</div><div class="v">' + c[1] + '</div></div>';
+      }).join('') + '</div>' +
+      '<div class="d-grid">' + s.photos.map(function (p) {
+        return '<img class="d-ph" src="' + p + '" alt="' + s.name + ' photo" loading="lazy">';
+      }).join('') + '</div>' +
+      '<a class="d-more" href="' + s.link + '">VIEW ALL PHOTOS \u2014 OFFICIAL PAGE \u2197</a>' +
+      '<div class="d-info">' +
+        (s.plan
+          ? '<div class="d-plan" style="opacity:1;"><img src="' + s.plan + '" alt="Floor plan" style="width:100%; height:100%; object-fit:contain; filter:invert(.92) grayscale(1);"><div class="p-label">FLOOR PLAN</div></div>'
+          : '<div class="d-plan"><div class="p1"></div><div class="p2"></div><div class="p3"></div><div class="p4"></div><div class="p-label">FLOOR PLAN</div></div>') +
+        '<div class="d-list"><div class="h">INFORMATION</div>' + info.map(function (r) {
+          return '<div class="row"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>';
+        }).join('') + '</div>' +
+      '</div>' +
+      '<div class="bar d-bar">' +
+        '<div class="specs">' + s.specs.map(function (x) { return '<span>' + x.replace(/ /g, '&nbsp;') + '</span>'; }).join('<i>\u00B7</i>') + '</div>' +
+        '<a class="view-link" href="' + QNA + '">Q&amp;A<b>\u2197</b></a>' +
+        '<a class="reserve" href="' + RESERVE + '">RESERVATION&nbsp;&nbsp;\u2192</a>' +
+      '</div>';
+  }
+
+  /* ---------- router ---------- */
+  var views = { home: 'view-home', studios: 'view-studios', archive: 'view-archive', detail: 'view-detail' };
+  function showView(name) {
+    Object.keys(views).forEach(function (k) {
+      document.getElementById(views[k]).classList.toggle('show', k === name);
+    });
+    nav.style.display = (name === 'home') ? '' : 'none';
+    document.querySelectorAll('.menu a[data-route]').forEach(function (l) {
+      l.classList.toggle('on', l.dataset.route === name);
+    });
+    window.scrollTo(0, 0);
+  }
+  function route() {
+    var h = (location.hash || '#home').slice(1);
+    if (h.indexOf('s/') === 0) {
+      var id = h.slice(2);
+      var s = STUDIOS.filter(function (x) { return x.id === id; })[0];
+      if (s) { renderDetail(s); showView('detail'); return; }
+    }
+    showView(views[h] ? h : 'home');
+  }
+  window.addEventListener('hashchange', route);
+  route();
+
+  /* ---------- observers ---------- */
+  var links = nav.querySelectorAll('a');
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        links.forEach(function (l) { l.classList.toggle('active', l.dataset.target === e.target.id); });
+      }
+    });
+  }, { threshold: 0.55 });
+  document.querySelectorAll('section.studio').forEach(function (s) { spy.observe(s); });
+
+  var reveal = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px' });
+  document.querySelectorAll('.rv').forEach(function (el) { reveal.observe(el); });
+</script>
+
+</body>
+</html>
