@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAYER STUDIOS — D</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard',sans-serif; background:#FFFFFF; color:#0D0D0B; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; text-decoration:none; }
+  .page { min-height:100vh; padding:22px 30px; display:flex; flex-direction:column; }
+
+  .head { display:flex; justify-content:space-between; align-items:center; }
+  .brand { display:flex; align-items:center; gap:9px; font-size:11px; letter-spacing:.14em; font-weight:700; }
+  .menu { display:flex; gap:20px; font-size:10px; letter-spacing:.12em; font-weight:600; }
+
+  .cols { display:flex; gap:44px; margin-top:40px; flex:1; }
+  .list { flex:1.1; }
+  .row { display:flex; align-items:baseline; gap:16px; padding:9px 0; border-bottom:1px solid #EEEBE4; cursor:pointer; }
+  .row:last-child { border-bottom:none; }
+  .row .n { font-size:10px; color:#B0ADA5; width:24px; font-weight:600; letter-spacing:.06em; }
+  .row .t { font-size:min(3.4vw,30px); font-weight:800; letter-spacing:-.01em; color:#C7C4BC; transition:color .2s; }
+  .row .s { font-size:10px; color:#C7C4BC; letter-spacing:.06em; margin-left:auto; font-weight:600; transition:color .2s; }
+  .row.on .t { color:#0D0D0B; }
+  .row.on .s { color:#55534C; }
+
+  .preview { flex:1; position:sticky; top:22px; align-self:flex-start; }
+  .pimg { width:100%; aspect-ratio:4/3; background:#E4E1D9 center/cover; filter:grayscale(1) contrast(1.05); }
+  .pmeta { display:flex; justify-content:space-between; margin-top:10px; font-size:11px; letter-spacing:.04em; color:#55534C; font-weight:600; }
+  .pmeta .r { color:#9A978E; }
+  .ctas { display:flex; gap:2px; margin-top:14px; }
+  .ctas a { flex:1; text-align:center; font-size:11px; letter-spacing:.08em; font-weight:700; padding:12px 0; }
+  .ctas .view { border:1px solid #E2DFD8; }
+  .ctas .reserve { color:#FFFFFF; background:#0D0D0B; }
+
+  @media (max-width:820px) {
+    .cols { flex-direction:column-reverse; gap:24px; margin-top:24px; }
+    .preview { position:static; }
+    .row .t { font-size:20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="head">
+    <span class="brand">
+      <svg width="17" height="17" viewBox="0 0 1080 1080"><path fill="#0D0D0B" d="M 225.19 854.80 L 225.19 87.25 L 87.25 87.25 L 87.25 992.75 L 992.75 992.75 L 992.75 854.80 Z"/><path fill="#0D0D0B" d="M 385.24 87.25 L 247.29 87.25 L 247.29 832.70 L 992.75 832.70 L 992.75 694.76 L 385.24 694.76 Z"/><path fill="#0D0D0B" d="M 407.34 87.25 C 413.98 409.44 677.43 670.5 992.75 672.66 L 992.75 87.25 Z"/></svg>
+      LAYER STUDIOS
+    </span>
+    <span class="menu"><a>STUDIOS</a><a>ARCHIVE</a><a>GUIDE</a><a>Q&amp;A</a></span>
+  </div>
+
+  <div class="cols">
+    <div class="list" id="list"></div>
+
+    <div class="preview">
+      <div class="pimg" id="pimg"></div>
+      <div class="pmeta"><span id="pdesc"></span><span class="r" id="pspec"></span></div>
+      <div class="ctas">
+        <a class="view" id="pview" href="#">VIEW STUDIO &#8599;</a>
+        <a class="reserve" href="https://plusjun.com/schedule.html">RESERVATION &#8594;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var S = [
+    { n:'01', t:'LAYER 7',  s:'YONGSAN · OLD CHURCH', d:'60년 된 교회를 리모델링한 자연광 스튜디오', sp:'160PY · H 8M',
+      img:'https://plusjun.com/images/studios/yongsan/ys_preview_13.jpg', link:'https://plusjun.com/product/studio-ys.html' },
+    { n:'02', t:'LAYER 10', s:'TTUKSEOM', d:'뚝섬역 앞 400평 방직 공장을 리모델링한 공간', sp:'400PY · CAFE',
+      img:'https://plusjun.com/images/studios/layer10/10_ex_detail_11.jpg', link:'https://plusjun.com/product/studio-10.html' },
+    { n:'03', t:'LAYER 11', s:'MAPO', d:'경의선 숲길 옆 300평 자연광 스튜디오', sp:'300PY · H 8M',
+      img:'https://plusjun1.cafe24.com/images/layer%2011/240812_11_ex.jpg', link:'https://plusjun.com/product/11_info.html' },
+    { n:'04', t:'LAYER 20', s:'YONGSAN', d:'원효로의 400평 스튜디오', sp:'400PY',
+      img:'https://plusjun1.cafe24.com/web/LAYER%2020%20%E1%84%92%E1%85%A7%E1%86%AB%E1%84%89%E1%85%AE%E1%84%86%E1%85%A1%E1%86%A8.jpg', link:'https://plusjun.com/product/studio-20.html' },
+    { n:'05', t:'LAYER 26', s:'SEONGSU', d:'성수동의 100평 자연광 스튜디오', sp:'100PY',
+      img:'https://plusjun.com/images/studios/layer26/26_a_01.jpg', link:'https://plusjun.com/product/studio-26.html' },
+    { n:'06', t:'LAYER 27', s:'SEONGSU', d:'120평 규모의 복층 스튜디오', sp:'120PY · DUPLEX',
+      img:'https://plusjun1.cafe24.com/images/layer27/27_R_3.JPG', link:'https://plusjun.com/js/27_info.html' },
+    { n:'07', t:'LAYER 41', s:'SEONGSU', d:'450평 철강 공장을 리모델링한 공간, A·B·C 3파트', sp:'450PY · H 9M',
+      img:'https://plusjun.com/images/studios/layer41/41_pre_02.jpg', link:'https://plusjun.com/product/studio-41.html' },
+    { n:'08', t:'HONGDAE',  s:'MAPO', d:'200평 정원을 갖춘 단독 주택 스튜디오', sp:'HOUSE · GARDEN',
+      img:'https://plusjun.com/images/studios/hongdae/hd_G_detail_02.jpg', link:'https://plusjun.com/product/studio-hd.html' },
+    { n:'09', t:'HANNAM',   s:'HANNAM', d:'한남동 2층 150평 단독 주택 자연광 스튜디오', sp:'150PY · HOUSE',
+      img:'https://plusjun1.cafe24.com/Hannam/1114_e1.jpg', link:'https://plusjun.com/product/studio-hannam.html' }
+  ];
+
+  var list = document.getElementById('list');
+  var pimg = document.getElementById('pimg');
+  var pdesc = document.getElementById('pdesc');
+  var pspec = document.getElementById('pspec');
+  var pview = document.getElementById('pview');
+
+  function pick(i) {
+    document.querySelectorAll('.row').forEach(function (r, j) { r.classList.toggle('on', i === j); });
+    var s = S[i];
+    pimg.style.backgroundImage = "url('" + s.img + "')";
+    pimg.style.backgroundSize = 'cover';
+    pimg.style.backgroundPosition = 'center';
+    pdesc.textContent = s.d;
+    pspec.textContent = s.sp;
+    pview.href = s.link;
+  }
+
+  S.forEach(function (s, i) {
+    var r = document.createElement('a');
+    r.className = 'row';
+    r.href = s.link;
+    r.innerHTML = '<span class="n">' + s.n + '</span><span class="t">' + s.t + '</span><span class="s">' + s.s + '</span>';
+    r.addEventListener('mouseenter', function () { pick(i); });
+    list.appendChild(r);
+  });
+  pick(0);
+</script>
+
+</body>
+</html>

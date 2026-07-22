@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAYER STUDIOS — A</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Space+Grotesk:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard',sans-serif; background:#FFFFFF; color:#0D0D0B; -webkit-font-smoothing:antialiased; overflow:hidden; }
+  a { color:inherit; text-decoration:none; }
+
+  .photo {
+    position:fixed; inset:0 0 0 34%;
+    background:url('https://plusjun.com/images/studios/yongsan/ys_preview_13.jpg') center/cover;
+    filter:grayscale(1) contrast(1.05);
+  }
+  .photo::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,#FFFFFF 0%, rgba(255,255,255,.4) 30%, transparent 55%); }
+
+  header { position:fixed; top:0; left:0; right:0; z-index:10; display:flex; justify-content:space-between; align-items:center; padding:20px 24px; }
+  .brand { display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.16em; font-weight:700; }
+  .menu { display:flex; gap:26px; font-size:11px; letter-spacing:.14em; font-weight:600; }
+
+  nav.side { position:fixed; left:24px; top:50%; transform:translateY(-50%); z-index:10; display:flex; flex-direction:column; gap:9px; font-size:10px; letter-spacing:.1em; color:#B0ADA5; font-weight:600; }
+  nav.side .on { color:#0D0D0B; display:flex; align-items:center; gap:8px; }
+  nav.side .on i { display:inline-block; width:22px; height:1px; background:#0D0D0B; }
+
+  .wrap { position:fixed; left:76px; top:22vh; z-index:5; }
+  .idx { font-size:11px; letter-spacing:.14em; color:#8A8780; font-weight:600; }
+  .title { font-size:min(9vw,120px); font-weight:900; letter-spacing:-.02em; line-height:1; margin-top:16px; }
+  .desc { font-size:14px; color:#55534C; margin-top:14px; }
+
+  .title.f-pretendard { font-family:'Pretendard',sans-serif; font-weight:900; letter-spacing:-.02em; }
+  .title.f-anton { font-family:'Anton',sans-serif; font-weight:400; letter-spacing:.01em; transform:scale(.74,1.08); transform-origin:left center; }
+  .title.f-archivo { font-family:'Archivo Black',sans-serif; font-weight:400; letter-spacing:-.01em; }
+  .title.f-grotesk { font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-.03em; }
+  .title.f-bebas { font-family:'Bebas Neue',sans-serif; font-weight:400; letter-spacing:.02em; }
+
+  .loc { position:fixed; left:76px; bottom:120px; z-index:5; font-size:10px; letter-spacing:.1em; line-height:1.7; color:#55534C; border-left:1px solid #C9C6BF; padding-left:14px; font-weight:500; }
+  .loc b { display:block; color:#9A978E; margin-bottom:5px; font-weight:600; }
+  .loc a { display:inline-block; margin-top:5px; color:#0D0D0B; font-weight:700; }
+
+  .bar { position:fixed; left:16px; right:16px; bottom:14px; height:52px; z-index:10; display:flex; align-items:stretch; border:1px solid #E2DFD8; background:#FFFFFF; white-space:nowrap; }
+  .bar .specs { flex:1; display:flex; align-items:center; justify-content:center; gap:16px; font-size:11px; letter-spacing:.08em; color:#55534C; font-weight:600; }
+  .bar .specs i { font-style:normal; color:#C9C6BF; }
+  .bar .view { display:flex; align-items:center; padding:0 22px; font-size:11px; letter-spacing:.1em; font-weight:700; border-left:1px solid #E2DFD8; }
+  .bar .reserve { display:flex; align-items:center; padding:0 26px; font-size:11px; letter-spacing:.1em; font-weight:700; color:#FFFFFF; background:#0D0D0B; }
+
+  .fontsw { position:fixed; right:20px; bottom:80px; z-index:20; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+  .fontsw span { font-size:9px; letter-spacing:.12em; color:#9A978E; font-weight:700; margin-bottom:2px; }
+  .fontsw button { font-family:'Pretendard',sans-serif; font-size:10px; font-weight:700; letter-spacing:.06em; padding:6px 12px; border:1px solid #E2DFD8; background:#FFFFFF; color:#55534C; cursor:pointer; }
+  .fontsw button.on { background:#0D0D0B; color:#FFFFFF; border-color:#0D0D0B; }
+
+  @media (max-width:720px) {
+    .photo { inset:0; }
+    .photo::after { background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.4) 45%, rgba(255,255,255,.85)); }
+    nav.side { display:none; }
+    .wrap { left:20px; top:18vh; }
+    .loc { left:20px; bottom:96px; }
+    .bar .specs { display:none; }
+    .bar .view, .bar .reserve { flex:1; justify-content:center; }
+    .fontsw { bottom:88px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="photo"></div>
+
+<header>
+  <span class="brand">
+    <svg width="18" height="18" viewBox="0 0 1080 1080"><path fill="#0D0D0B" d="M 225.19 854.80 L 225.19 87.25 L 87.25 87.25 L 87.25 992.75 L 992.75 992.75 L 992.75 854.80 Z"/><path fill="#0D0D0B" d="M 385.24 87.25 L 247.29 87.25 L 247.29 832.70 L 992.75 832.70 L 992.75 694.76 L 385.24 694.76 Z"/><path fill="#0D0D0B" d="M 407.34 87.25 C 413.98 409.44 677.43 670.5 992.75 672.66 L 992.75 87.25 Z"/></svg>
+    LAYER STUDIOS
+  </span>
+  <span class="menu"><a>STUDIOS</a><a>ARCHIVE</a><a>GUIDE</a><a>Q&amp;A</a></span>
+</header>
+
+<nav class="side">
+  <span class="on">07<i></i></span>
+  <span>10</span><span>11</span><span>20</span><span>26</span><span>27</span><span>41</span><span>HD</span><span>HN</span>
+</nav>
+
+<div class="wrap">
+  <div class="idx">07&nbsp;&nbsp;&mdash;&nbsp;&nbsp;01 / 09</div>
+  <div class="title f-pretendard" id="title">LAYER 7</div>
+  <div class="desc">60년 된 교회를 리모델링한 자연광 스튜디오</div>
+</div>
+
+<div class="loc">
+  <b>LOCATION</b>
+  7, HANGANG-DAERO 98GA-GIL<br>YONGSAN-GU, SEOUL
+  <a href="https://map.naver.com/v5/search/%EC%84%9C%EC%9A%B8%20%EC%9A%A9%EC%82%B0%EA%B5%AC%20%ED%95%9C%EA%B0%95%EB%8C%80%EB%A1%9C98%EA%B0%80%EA%B8%B8%207">MAP &#8599;</a>
+</div>
+
+<div class="bar">
+  <div class="specs"><span>YONGSAN</span><i>&#183;</i><span>160PY</span><i>&#183;</i><span>OLD CHURCH</span></div>
+  <a class="view" href="https://plusjun.com/product/studio-ys.html">VIEW STUDIO &#8599;</a>
+  <a class="reserve" href="https://plusjun.com/schedule.html">RESERVATION&nbsp;&nbsp;&#8594;</a>
+</div>
+
+<div class="fontsw">
+  <span>TITLE FONT</span>
+  <button class="on" data-f="f-pretendard">PRETENDARD BLACK</button>
+  <button data-f="f-anton">ANTON (압축)</button>
+  <button data-f="f-archivo">ARCHIVO BLACK</button>
+  <button data-f="f-grotesk">SPACE GROTESK</button>
+  <button data-f="f-bebas">BEBAS NEUE</button>
+</div>
+
+<script>
+  var t = document.getElementById('title');
+  document.querySelectorAll('.fontsw button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.fontsw button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      t.className = 'title ' + b.dataset.f;
+    });
+  });
+</script>
+
+</body>
+</html>
